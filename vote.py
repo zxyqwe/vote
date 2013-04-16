@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 #coding=utf-8
+#Thanks for DingYuntong
+
 import sys,re,os
 import gevent
 import gevent.monkey;gevent.monkey.patch_all();
