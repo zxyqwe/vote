@@ -5,11 +5,8 @@
 import sys,re,os
 import gevent
 import gevent.monkey;gevent.monkey.patch_all();
-import gevent.queue
 import requests
 from pyquery import PyQuery
-
-ip_Q = gevent.queue.Queue()
 
 PORT = ['8080','80','43','3128','43']
 
@@ -30,8 +27,6 @@ def get_proxy():
 
 def vote():
 	pass #do as your wish
-
-#def vote_
 
 if __name__ == '__main__':
 	get_proxy("http://www.cnproxy.com/proxy1.html")
