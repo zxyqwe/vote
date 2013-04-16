@@ -4,24 +4,23 @@
 
 import sys,re,os
 import gevent
-import gevent.monkey;gevent.monkey.patch_all();
+import gevent.monkey
 import requests
 from pyquery import PyQuery
 
 PORT = ['8080','80','43','3128','43']
+urls=[]
+gevent.monkey.patch_all()
 
-def get_proxy():
+def get_proxy(url):
 	try:
-		while True:
-			url = url_Q.get(timeout=1)
-			r = requests.get(url)#plz set timeout
-			r.encoding='gb2312'
-			d = PyQuery(r.text)
-			for item in d("#proxylisttb table tr td"):
-				ip = item.text
-				if ip and re.match(r"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", ip):
-					ip_Q.put(ip)
-					print ip
+		r = requests.get(url)#plz set timeout
+		r.encoding='gb2312'
+		d = PyQuery(r.text)
+		for item in d("#proxylisttb table tr td"):
+			ip = item.text
+			if ip and re.match(r"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", ip):
+				print ip
 	except gevent.queue.Empty:
 		print 'get_proxy quit!'
 
