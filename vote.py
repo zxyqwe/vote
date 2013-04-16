@@ -5,7 +5,7 @@
 import sys,re,os
 import gevent
 import gevent.monkey
-import requests
+import urllib2
 from pyquery import PyQuery
 
 PORT = ['8080','80','43','3128','43']
@@ -14,14 +14,14 @@ gevent.monkey.patch_all()
 
 def get_proxy(url):
 	try:
-		r = requests.get(url)#plz set timeout
-		r.encoding='gb2312'
-		d = PyQuery(r.text)
+		r = urllib2.urlopen(url)
+		d = PyQuery(r.read())
 		for item in d("#proxylisttb table tr td"):
 			ip = item.text
 			if ip and re.match(r"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", ip):
 				print ip
-	except gevent.queue.Empty:
+	except Exception as e:
+		print e
 		print 'get_proxy quit!'
 
 def vote():
